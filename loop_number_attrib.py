@@ -21,4 +21,7 @@ for attr, value in vars(my_main_class).items():
     print(attr, value)
 
 
+for i in range(1, 5):
+    a = getattr(my_main_class, "arg" + str(i))
+    print(a)
 
