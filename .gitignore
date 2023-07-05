@@ -1,1 +1,6 @@
 .venv
+.vscode
+Input/
+Originals/
+Out/
+Out_resized/
