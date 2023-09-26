@@ -17,7 +17,6 @@ df = pd.DataFrame(
 
 st.map(df)
 
-
 df2 = px.data.gapminder()
 
 fig = px.scatter(
