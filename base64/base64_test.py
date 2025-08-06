@@ -18,3 +18,23 @@ if __name__ == "__main__":
     encode_pdf_to_base64(pdf_path, encoded_path)
     decode_base64_to_pdf(encoded_path, decoded_path)
 
+    png_path = os.path.join(script_dir, 'test.png')
+    encoded_path = os.path.join(script_dir, 'encoded_png.txt')
+    decoded_path = os.path.join(script_dir, 'decoded.png')
+
+    encode_pdf_to_base64(png_path, encoded_path)
+    decode_base64_to_pdf(encoded_path, decoded_path)
+
+    pdf_path = os.path.join(script_dir, 'Presentation1.pdf')
+    encoded_path = os.path.join(script_dir, 'encoded_Presentation1.txt')
+    decoded_path = os.path.join(script_dir, 'decoded_Presentation1.pdf')
+    
+    encode_pdf_to_base64(pdf_path, encoded_path)
+    decode_base64_to_pdf(encoded_path, decoded_path)
+
+    pdf_path = os.path.join(script_dir, 'drawing.pdf')
+    encoded_path = os.path.join(script_dir, 'encoded_drawing.txt')
+    decoded_path = os.path.join(script_dir, 'decoded_drawing.pdf')
+
+    encode_pdf_to_base64(pdf_path, encoded_path)
+    decode_base64_to_pdf(encoded_path, decoded_path)
