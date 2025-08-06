@@ -38,3 +38,12 @@ if __name__ == "__main__":
 
     encode_pdf_to_base64(pdf_path, encoded_path)
     decode_base64_to_pdf(encoded_path, decoded_path)
+
+    
+    pdf_path = os.path.join(script_dir, 'K100_001.pdf')
+    encoded_path = os.path.join(script_dir, 'encoded_K100_001.txt')
+    decoded_path = os.path.join(script_dir, 'decoded_K100_001.pdf')
+
+    encode_pdf_to_base64(pdf_path, encoded_path)
+    decode_base64_to_pdf(encoded_path, decoded_path)
+

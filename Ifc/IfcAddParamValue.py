@@ -89,33 +89,53 @@ def add_base64_parameter_to_objects(model, base64_data):
     
     print(f"Found {len(property_capable_objects)} objects in the model")
     
-    for obj in property_capable_objects:
-        # Skip objects that are reinforcing elements
-        if obj.is_a("IfcReinforcingBar"):
-            continue
-        try:
-            # Create a property set for this object
-            pset = ifcopenshell.api.run("pset.add_pset", model, 
-                                      product=obj, 
-                                      name="BIM_Base64")
-            
-            # Add the base64 property to the property set
-            _iter = 1
-            for chunk in base64_data:
-                ifcopenshell.api.run("pset.edit_pset", model, 
-                                   pset=pset, 
-                                   properties={f"Base64_{1}.{_iter}": chunk})
-                _iter += 1
-            
-            objects_modified += 1
-            
-            # Print progress for every 10 objects
-            if objects_modified % 10 == 0:
-                print(f"  Processed {objects_modified} objects...")
-                
-        except Exception as e:
-            print(f"✗ Error adding parameter to object {obj.GlobalId}: {e}")
-            continue
+    # Filter out objects that are not suitable for adding properties
+    # For example, we might want to skip IfcReinforcingBar or other specific types
+    # Here we assume that all IfcObject types are suitable, but you can customize this
+    # Note: If you want to filter specific types, you can modify this section
+    # For example, to skip IfcReinforcingBar:
+    property_capable_objects = [obj for obj in property_capable_objects if not obj.is_a("IfcReinforcingBar")]
+
+    print(f"Filtered to {len(property_capable_objects)} suitable objects for adding properties")
+    if not property_capable_objects:
+        print("✗ No suitable objects found for adding properties")
+        return 0
+    
+     # Add the pset to the first object to create a template
+    pset = ifcopenshell.api.run("pset.add_pset", 
+                                          model, 
+                                          product=property_capable_objects[0], 
+                                          name="BIM_Base64")
+    
+    if not pset:
+        print("✗ Failed to create property set for base64 data")
+        return 0
+    print(f"✓ Created property set 'BIM_Base64' for base64 data")
+
+    # Assign the pset to all suitable objects
+    print(f"Adding base64 parameter to {len(property_capable_objects)} objects...")
+    pset_assigned = ifcopenshell.api.run("pset.assign_pset", 
+                                                     model,
+                                                     pset=pset, 
+                                                     products=property_capable_objects)
+
+    if not pset_assigned:
+        print("✗ Failed to assign property set to objects")
+        return 0
+    print(f"✓ Assigned property set 'BIM_Base64' to {len(property_capable_objects)} objects")
+
+    # Add the base64 property to the property set
+    _iter = 1
+    try:
+        for chunk in base64_data:
+            ifcopenshell.api.run("pset.edit_pset", model, 
+                                pset=pset, 
+                                properties={f"Base64_{1}.{_iter}": chunk})
+            _iter += 1
+        objects_modified = len(property_capable_objects)
+    except Exception as e:
+        print(f"✗ Error adding base64 data to property set: {e}")
+        return 0
     
     print(f"✓ Successfully added base64 parameter to {objects_modified} objects")
     return objects_modified
@@ -126,10 +146,10 @@ def main():
     Main function to execute the script.
     """
     # Define file paths
-    ifc_file_name = "ParamTestingBase64.ifc"
+    ifc_file_name = "Mandalselva.ifc"
     ifc_file_path = os.path.join("ifc", ifc_file_name)
-    base64_file_path = os.path.join("base64", "encoded_drawing.txt")
-    output_file_path = os.path.join("ifc", "ParamTestingBase64_with_base64_param.ifc")
+    base64_file_path = os.path.join("base64", "encoded_K100_001.txt")
+    output_file_path = os.path.join("ifc", "Mandalselva_base64_test.ifc")
     
     print("=" * 60)
     print("IFC Base64 Parameter Addition Script")
