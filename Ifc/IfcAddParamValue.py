@@ -5,8 +5,8 @@ Script to add a base64 parameter to all objects in an IFC model using ifcopenshe
 This script:
 1. Loads an IFC model
 2. Reads base64 data from a text file
-3. Creates a property set with a base64 parameter
-4. Adds this property set to all objects in the model
+3. Creates a property set with base64 parameters
+4. Adds this property set to all objects in the model except IfcReinforcingBar
 5. Saves the modified model
 """
 
@@ -85,7 +85,8 @@ def add_base64_parameter_to_objects(model, base64_data):
     
     # Get all objects that can have properties (typically building elements)
     # This includes walls, slabs, beams, columns, etc.
-    property_capable_objects = model.by_type("IfcObject")
+    # property_capable_objects = model.by_type("IfcObject")
+    property_capable_objects = model.by_type("IfcBuilding")
     
     print(f"Found {len(property_capable_objects)} objects in the model")
     
@@ -95,6 +96,8 @@ def add_base64_parameter_to_objects(model, base64_data):
     # Note: If you want to filter specific types, you can modify this section
     # For example, to skip IfcReinforcingBar:
     property_capable_objects = [obj for obj in property_capable_objects if not obj.is_a("IfcReinforcingBar")]
+
+
 
     print(f"Filtered to {len(property_capable_objects)} suitable objects for adding properties")
     if not property_capable_objects:
