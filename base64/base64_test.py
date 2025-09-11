@@ -47,3 +47,12 @@ if __name__ == "__main__":
     encode_pdf_to_base64(pdf_path, encoded_path)
     decode_base64_to_pdf(encoded_path, decoded_path)
 
+    gif_path = os.path.join(script_dir, 'dance-meme-coffin-meme.gif')
+    encoded_path = os.path.join(script_dir, 'encoded_gif.txt')
+    encode_pdf_to_base64(gif_path, encoded_path)
+
+    snack_path = os.path.join(script_dir, 'Snacks.pdf')
+    encoded_path = os.path.join(script_dir, 'encoded_snacks.txt')
+    encode_pdf_to_base64(snack_path, encoded_path)
+
+

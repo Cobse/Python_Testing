@@ -149,11 +149,11 @@ def main():
     Main function to execute the script.
     """
     # Define file paths
-    ifc_file_name = "Mandalselva.ifc"
+    ifc_file_name = "SNACKS.ifc"
     ifc_file_path = os.path.join("ifc", ifc_file_name)
-    base64_file_path = os.path.join("base64", "encoded_K100_001.txt")
-    output_file_path = os.path.join("ifc", "Mandalselva_base64_test.ifc")
-    
+    base64_file_path = os.path.join("base64", "encoded_snacks.txt")
+    output_file_path = os.path.join("ifc", "SNACKS_base64.ifc")
+
     print("=" * 60)
     print("IFC Base64 Parameter Addition Script")
     print("=" * 60)
