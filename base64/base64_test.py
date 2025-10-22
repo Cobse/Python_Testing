@@ -55,4 +55,9 @@ if __name__ == "__main__":
     encoded_path = os.path.join(script_dir, 'encoded_snacks.txt')
     encode_pdf_to_base64(snack_path, encoded_path)
 
+    idv_path = os.path.join(script_dir, 'NV42E39MB-KNS-K107 Mandalselva bru - IDV Plan.pdf')
+    encoded_path = os.path.join(script_dir, 'encoded_idv.txt')
+    encode_pdf_to_base64(idv_path, encoded_path)
+
+
 

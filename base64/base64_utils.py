@@ -4,8 +4,10 @@ def encode_pdf_to_base64(pdf_path, output_path):
     try:
         with open(pdf_path, 'rb') as pdf_file:
             encoded = base64.b64encode(pdf_file.read())
+            print(f"Encoded {pdf_path} to base64, length: {len(encoded)} characters")
         with open(output_path, 'wb') as out_file:
             out_file.write(encoded)
+            print(f"Encoded content written to {output_path}")
     except Exception as e:
         print(f"Error encoding PDF to base64: {e}")
 
